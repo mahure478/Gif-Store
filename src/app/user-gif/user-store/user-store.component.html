@@ -1,0 +1,26 @@
+<div class="userStore">
+    <div class="title">
+      <h4>User Store</h4>  
+      <img src ='https://media3.giphy.com/media/SMEGj0pb5eUKcnot8x/giphy.gif?cid=5f8655562oliwdpv00y5w2eohy2snck0tk7kno781g3fkkm5&rid=giphy.gif&ct=g'/>
+    </div>
+    <div class="note">NOTE : Please Reset Before Sorting.</div>
+    <div class="search">
+        <mat-form-field>
+            <mat-label>Search by name</mat-label>
+            <input matInput [(ngModel)] = 'searchIp' >
+        </mat-form-field>
+       
+        <button mat-raised-button color="primary" *ngIf="onSearchClick else search_here" (click)="reset()">Reset</button>
+        <ng-template #search_here>
+            <button mat-raised-button color="primary"  (click)="searchInUserStore()">Search</button>
+        </ng-template>
+
+        <button mat-raised-button color="accent" (click)="sortByDate()">Sort By Date</button>
+    </div> 
+
+    <div class="gif" *ngIf="gifData" >
+        <span class="gif-container" *ngFor=" let i of gifData">
+            <img src="{{i?.url}}">
+        </span>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+@mixin fontDesign($fontSize,$fontWeight,$color) {
+    font-size: $fontSize;
+    font-weight: $fontWeight;
+    color:$color;
+}
+
+@mixin setWidthHeight($width,$height) {
+    width:$width;
+    height:$height
+}

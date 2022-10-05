@@ -1,0 +1,40 @@
+@import '../../assets/mixins.scss';
+.container {
+    display: flex;
+    .user-input {
+        border-right: thick solid #000;
+        flex:3;
+        margin: 10px;
+        line-height: 3em;
+        .note {
+           color:#ff4081;
+           font-size: 20px;;
+        }
+        .button {
+           button:nth-child(2) {
+            margin-left: 10px;
+            margin-top:10px;
+           }
+        }
+        .api-result {   
+            img {
+            @include setWidthHeight(200px,200px);
+        }}
+    }
+    .user-store-container {
+        flex: 7;
+        .no-result{
+            display:flex;
+            flex:5;
+            flex-direction: column;
+            h3 {
+                @include fontDesign(20px,600,darkviolet)
+            }
+            button {
+                width: 100px;
+            }
+        }
+    }
+   
+        
+}

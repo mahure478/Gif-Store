@@ -1,0 +1,15 @@
+@import '../assets/mixins.scss';
+.app-container {
+    background-color: black;
+    align-items: center;
+    display: flex;
+    div {
+        font-size: 40px;
+        text-align: left;
+        font-weight: 500;
+        color: #fff;
+    }
+    img {
+       @include setWidthHeight(50px,50px)
+    }
+}

@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="user-input">
+        <div class="note">Please Select a limit. By selecting the limit you are setting how many images should be returned from Giphy.</div>
+        <div class="select">
+            <mat-form-field>
+                <mat-label>Select a limit</mat-label>
+                <mat-select [(value)]="defaultLimit">
+                    <mat-option *ngFor="let limit of limitData" [value]='limit'>{{limit}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="input-field">
+            <mat-form-field>
+                <mat-label>Search a gif</mat-label>
+                <input matInput [(ngModel)]='searchInput'>
+            </mat-form-field>
+        </div>
+
+        <div class="button">
+            <button mat-raised-button color="primary" (click)="onSearchClick()">Search</button>
+            <button mat-raised-button color="accent" (click)="addToStore()" [disabled]="gifData.length === 0">Add to Store</button>
+        </div>
+
+
+        <div *ngIf="gifData" class="api-result">
+            <span *ngFor="let i of gifData">
+                <img src="{{i?.images?.original?.url}}" />
+            </span>
+        </div>
+    </div>
+
+    <div class="user-store-container">
+
+    <div class="userStore"  *ngIf="!message else no_records">
+        <app-user-store [gifData]="gifUrl" (filteredData)="getFilteredData($event)" (sortedData)="sortByDate()"
+            (resetSearch)="resetData()">
+        </app-user-store>
+    </div>
+
+    
+    <ng-template #no_records>
+        <div class="no-result">
+            <h3>{{message}}</h3>
+            <button mat-raised-button color="warn" (click)="resetData()">Go Back</button>
+        </div>
+    </ng-template>
+
+</div>
+
+</div>

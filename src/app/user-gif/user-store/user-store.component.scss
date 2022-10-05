@@ -1,0 +1,31 @@
+@import '../../../assets/mixins.scss';
+.userStore {
+    margin:20px;
+    line-height: 4em;
+    .title {
+        display: flex;
+        align-items: center;
+      h4 {
+        font-weight: 600;
+        @include fontDesign(20px,500,#3f51b5);
+      }
+      img {
+        @include setWidthHeight(60px,60px)
+      }
+    }
+    .note {
+        @include fontDesign(20px,500,#ff4081);
+    }
+    .search {
+        button {
+            margin-left: 10px;
+        }
+    }
+    .gif{
+        .gif-container {
+            img {
+               @include setWidthHeight(200px,200px)
+            }
+        }
+    }
+}
