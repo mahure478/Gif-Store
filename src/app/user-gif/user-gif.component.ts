@@ -17,6 +17,7 @@ export class UserGifComponent implements OnInit {
   defaultLimit = this.limitData[0];
   addGif= new Array<GifUrl>();
   isAscending: boolean = true;
+  name: string = 'Shweta';
 
   constructor(private gs: GiphyService) { }
 
