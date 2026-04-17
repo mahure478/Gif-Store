@@ -1,4 +1,4 @@
-@import '../../../assets/mixins.scss';
+@use '../../../assets/mixins.scss' as *;
 .userStore {
     margin:20px;
     line-height: 4em;

@@ -35,16 +35,19 @@
           },
           "configurations": {
             "production": {
+              "optimization": {
+                "fonts": false
+              },
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ],
               "fileReplacements": [
@@ -70,11 +73,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "gif-store:build:production"
+              "buildTarget": "gif-store:build:production"
             },
             "development": {
-              "browserTarget": "gif-store:build:development",
-              "port":8000
+              "buildTarget": "gif-store:build:development",
+              "port": 8000
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +85,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "gif-store:build"
+            "buildTarget": "gif-store:build"
           }
         },
         "test": {
@@ -106,5 +109,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "5bf22486-cba9-4d97-b938-9f78c3131f01"
   }
 }

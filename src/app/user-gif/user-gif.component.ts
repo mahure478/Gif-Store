@@ -1,47 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { GifUrl } from 'src/assets/gifUrl.model';
-import { GiphyService } from '../service/giphy.service';
+import { GiphyService, GiphySearchResponse, GiphyImage } from '../service/giphy.service';
 
 @Component({
   selector: 'app-user-gif',
   templateUrl: './user-gif.component.html',
-  styleUrls: ['./user-gif.component.scss']
+  styleUrls: ['./user-gif.component.scss'],
+  standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserGifComponent implements OnInit {
 
-  searchInput : string = '';
-  message: string = '';
-  gifData: any[] = [];
+  searchInput = '';
+  message = '';
+  gifData: GiphyImage[] = [];
   gifUrl: GifUrl[] = [];
-  limitData: number[] = [10,20,30,40,50];
+  limitData = [10, 20, 30, 40, 50];
   defaultLimit = this.limitData[0];
-  addGif= new Array<GifUrl>();
-  isAscending: boolean = true;
-  name: string = 'Shrihas';
+  addGif: GifUrl[] = [];
+  isAscending = true;
+  name = 'Shrihas';
 
-  constructor(private gs: GiphyService) { }
+  constructor(private gs: GiphyService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-     this.getDataInStore();
+    this.getDataInStore();
   }
 
   /**
    * On Search Click get the results based on search input from giphy search api.
    */
-  onSearchClick() : void {
-    this.gs.searchGif(this.searchInput,this.defaultLimit).subscribe(res => {
+  onSearchClick(): void {
+    this.gs.searchGif<GiphySearchResponse>(this.searchInput, this.defaultLimit).subscribe(res => {
       this.gifData = res.data;
-      this.addGif = [];
-      this.gifData.forEach((i:any) => {
-        this.addGif.push({
-          id: i.id,
-          name:this.searchInput.toUpperCase(),
-          url: i.images.original.url,
-          date: new Date()
-        })
-     })
-
-    })
+      this.addGif = this.gifData.map((item) => ({
+        id: item.id,
+        name: this.searchInput.toUpperCase(),
+        url: item.images.original.url,
+        date: new Date()
+      }));
+      this.cdr.markForCheck();
+    });
   }
 
   /**
@@ -92,13 +91,15 @@ export class UserGifComponent implements OnInit {
   }
   /**
    * Filter the Data based on search Input
-   * @param urlData 
+   * @param data GifUrl[]
    */
-  getFilteredData(dataKey:any): void {
-    if(localStorage.getItem(dataKey) !== null) {
-      this.gifUrl = JSON.parse(localStorage.getItem(dataKey) || '')
+  getFilteredData(data: GifUrl[]): void {
+    if (data && data.length > 0) {
+      this.gifUrl = data;
+      this.message = '';
     } else {
-      this.message = `No Data Found!!! Please search from Giphy and Add in User Store. `
+      this.gifUrl = [];
+      this.message = `No Data Found!!! Please search from Giphy and Add in User Store.`;
     }
   }
 
